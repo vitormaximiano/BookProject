@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
+import java.io.Serializable;
+
 import static javax.persistence.GenerationType.*;
 
 @Entity
-public class Book {
+@Table(name = "tb_user")
+public class Book implements Serializable {
 
     @Id
     @GeneratedValue(strategy= AUTO)
@@ -24,6 +27,10 @@ public class Book {
 
     @Column(name="description", nullable=false)
     private String description;
+
+    public Long getId (){
+        return id;
+    }
 
     public String getTitle (){
         return title;
