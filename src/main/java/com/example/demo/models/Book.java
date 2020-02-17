@@ -20,6 +20,9 @@ public class Book {
     @Column(name="autor", nullable=false)
     private String autor;
 
+    @Column(name="description", nullable=false)
+    private String description;
+
     public Long getId (){
         return id;
     }
@@ -51,4 +54,13 @@ public class Book {
     public void setAutor (String autor){
         this.autor = autor;
     }
+
+    public String getDescription (){
+        return description;
+    }
+
+    public void setDescription (String description){
+        this.description = description;
+    }
+
 }
