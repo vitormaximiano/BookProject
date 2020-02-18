@@ -1,7 +1,4 @@
 package com.example.demo.controllers;
 
-public class BookController{
-
-
-
+public class AutorController{
 }
