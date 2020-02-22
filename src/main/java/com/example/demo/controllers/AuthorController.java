@@ -64,9 +64,10 @@ public class AuthorController {
 
     @GetMapping("delete-author/{id}")
     public String deleteAuthor (@PathVariable("id") long id, Model model) {
-        Author author = authorRepository.findById(id).orElseThrow(() new -> IllegalArgumentException("Autor de ID = " + id + " não existe!"));
+        Author author = authorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Autor da id " + id + " não existe"));
         authorRepository.delete(author);
         model.addAttribute("author", authorRepository.findAll());
+        return "author/delete";
     }
 
 }
