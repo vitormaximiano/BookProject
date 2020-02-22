@@ -44,11 +44,29 @@ public class AuthorController {
         return "redirect:author/list";
     }
 
-    @GetMapping("edit/{id}")
+    @GetMapping("edit-author/{id}")
     public String showUpdateForm (@PathVariable("id") long id, Model model) {
         Author author = authorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Código de verificação número " + id + " inválido!"));
         model.addAttribute("author", author);
         return "author/update";
+    }
+
+    @PostMapping("update-author/{id}")
+    public String updateAuthor (@PathVariable("id") long id, @Valid Author author, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            author.setId(id);
+            return "author/update";
+        }
+        authorRepository.save(author);
+        model.addAttribute("author", authorRepository.findAll());
+        return "authors/list";
+    }
+
+    @GetMapping("delete-author/{id}")
+    public String deleteAuthor (@PathVariable("id") long id, Model model) {
+        Author author = authorRepository.findById(id).orElseThrow(() new -> IllegalArgumentException("Autor de ID = " + id + " não existe!"));
+        authorRepository.delete(author);
+        model.addAttribute("author", authorRepository.findAll());
     }
 
 }
