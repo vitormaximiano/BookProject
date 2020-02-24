@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Entity;
 
 @Entity
-public class Author {
+public class Authors {
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -16,19 +16,8 @@ public class Author {
     @Column(name="name", nullable=false)
     private String name;
 
-    public long getId (){
-        return id;
-    }
-
     public void setId (long id){
         this.id = id;
     }
 
-    public String getName (){
-        return name;
-    }
-
-    public void setName (String name){
-        this.name = name;
-    }
 }

@@ -11,22 +11,24 @@
                 <p><a href="/login">Adicionar autor</a></p>
             </div>
             <div class="row">
-                <div th:switch="${author}" class="col-md-12">
+                <div th:switch="${authors}" class="col-md-12">
                     <div th:case="null">
-                        <p>Nenhum autor cadastrado ainda!</p>
+                        <p>No authors yet!</p>
                     </div>
                     <div th:case="*">
                         <table class="table table-striped table-responsive">
                             <thead>
                                 <tr>
                                     <td>Id</td>
-                                    <td>Nome</td>
-                                    <td>Editar</td>
-                                    <td>Excluir</td>
+                                    <td>Name</td>
+                                    <td>Edit</td>
+                                    <td>Delete</td>
                                 </tr>
                             </thead>
                             <tbody>
-
+                                <tr th:each="author : ${authors}">
+                                    <td th:text="${author.id}"></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

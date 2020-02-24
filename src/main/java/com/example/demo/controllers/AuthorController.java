@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import com.example.demo.models.Author;
+import com.example.demo.models.Authors;
 import com.example.demo.repositories.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,18 +25,18 @@ public class AuthorController {
     }
 
     @GetMapping("login")
-    public String showSignUpForm (Author author) {
+    public String showSignUpForm () {
         return "author/add";
     }
 
     @GetMapping("list-authors")
     public String showUpdateForm (Model model) {
-        model.addAttribute("author", authorRepository.findAll());
+        model.addAttribute("authors", authorRepository.findAll());
         return "author/list";
     }
 
     @PostMapping("add")
-    public String addAuthor (@Valid Author author, BindingResult bindingResult, Model model) {
+    public String addAuthor (@Valid Authors author, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return "author/add";
         }
@@ -46,27 +46,27 @@ public class AuthorController {
 
     @GetMapping("edit-author/{id}")
     public String showUpdateForm (@PathVariable("id") long id, Model model) {
-        Author author = authorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Código de verificação número " + id + " inválido!"));
+        Authors author = authorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Código de verificação número " + id + " inválido!"));
         model.addAttribute("authors", author);
         return "author/update";
     }
 
     @PostMapping("update-author/{id}")
-    public String updateAuthor (@PathVariable("id") long id, @Valid Author author, BindingResult bindingResult, Model model) {
+    public String updateAuthor (@PathVariable("id") long id, @Valid Authors author, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             author.setId(id);
             return "author/update";
         }
         authorRepository.save(author);
-        model.addAttribute("author", authorRepository.findAll());
+        model.addAttribute("authors", authorRepository.findAll());
         return "authors/list";
     }
 
     @GetMapping("delete-author/{id}")
     public String deleteAuthor (@PathVariable("id") long id, Model model) {
-        Author author = authorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Autor da id " + id + " não existe"));
+        Authors author = authorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Autor da id " + id + " não existe"));
         authorRepository.delete(author);
-        model.addAttribute("author", authorRepository.findAll());
+        model.addAttribute("authors", authorRepository.findAll());
         return "author/delete";
     }
 
