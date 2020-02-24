@@ -47,7 +47,7 @@ public class AuthorController {
     @GetMapping("edit-author/{id}")
     public String showUpdateForm (@PathVariable("id") long id, Model model) {
         Author author = authorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Código de verificação número " + id + " inválido!"));
-        model.addAttribute("author", author);
+        model.addAttribute("authors", author);
         return "author/update";
     }
 

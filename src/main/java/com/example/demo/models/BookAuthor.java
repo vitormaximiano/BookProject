@@ -15,10 +15,10 @@ public class BookAuthor {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
 
-    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private Set<Book> book;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
     private Set<Author> author;
 
 }
