@@ -9,7 +9,7 @@ import javax.persistence.CascadeType;
 import java.util.Set;
 
 @Entity
-public class AuthorsBooks {
+public class AuthorBook {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,4 +44,5 @@ public class AuthorsBooks {
     public void setBooks (Set<Books> books){
         this.books = books;
     }
+
 }

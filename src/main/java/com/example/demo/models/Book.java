@@ -7,7 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Column;
 
 @Entity
-public class Books {
+public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,4 +53,5 @@ public class Books {
     public void setDescription (String description){
         this.description = description;
     }
+
 }
