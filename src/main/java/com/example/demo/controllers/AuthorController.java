@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/")
@@ -24,22 +25,22 @@ public class AuthorController {
         this.authorRepository = authorRepository;
     }
 
-    @GetMapping("login")
-    public String showSignUpForm () {
-        return "author/add";
-    }
-
-    @GetMapping("list-authors")
-    public String showUpdateForm (Model model) {
-        model.addAttribute("authors", authorRepository.findAll());
+    @GetMapping("/")
+    public String showList (Model model) {
+        List<Authors> authors = authorRepository.findAll();
+        if (authors != null) {
+            model.addAttribute("authors", authors);
+        }
         return "author/list";
     }
 
-    @PostMapping("add")
-    public String addAuthor (@Valid Authors author, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "author/add";
-        }
+    @GetMapping("add-author")
+    public String showAddForm () {
+        return "author/add";
+    }
+
+    @PostMapping("insert-author")
+    public String insertAuthor (Authors author) {
         authorRepository.save(author);
         return "redirect:author/list";
     }
