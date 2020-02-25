@@ -16,10 +16,10 @@ public class AuthorBook {
     private Long id;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
-    private Set<Authors> authors;
+    private Set<Author> author;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
-    private Set<Books> books;
+    private Set<Book> book;
 
     public Long getId (){
         return id;
@@ -29,20 +29,20 @@ public class AuthorBook {
         this.id = id;
     }
 
-    public Set<Authors> getAuthors (){
-        return authors;
+    public Set<Author> getAuthor (){
+        return author;
     }
 
-    public void setAuthors (Set<Authors> authors){
-        this.authors = authors;
+    public void setAuthor (Set<Author> author){
+        this.author = author;
     }
 
-    public Set<Books> getBooks (){
-        return books;
+    public Set<Book> getBook (){
+        return book;
     }
 
-    public void setBooks (Set<Books> books){
-        this.books = books;
+    public void setBook (Set<Book> book){
+        this.book = book;
     }
 
 }

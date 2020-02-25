@@ -25,7 +25,7 @@ public class AuthorController {
         this.authorRepository = authorRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping("/list-authors")
     public String showList (Model model) {
         List<Author> authors = authorRepository.findAll();
         if (authors != null) {
@@ -35,25 +35,27 @@ public class AuthorController {
     }
 
     @GetMapping("add-author")
-    public String showAddForm () {
+    public String showAddAuthor () {
         return "author/add";
     }
 
-    @PostMapping("insert-author")
-    public String insertAuthor (Author author) {
+    @PostMapping("add-author/{id}/{name}")
+    public String addAuthor (Author author, @PathVariable("id") Long id, @PathVariable("name") String name) {
+        author.setId(id);
+        author.setName(name);
         authorRepository.save(author);
         return "redirect:author/list";
     }
 
     @GetMapping("edit-author/{id}")
-    public String showUpdateForm (@PathVariable("id") long id, Model model) {
+    public String showUpdateAuthor (@PathVariable("id") Long id, Model model) {
         Author author = authorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Código de verificação número " + id + " inválido!"));
         model.addAttribute("author", author);
         return "author/update";
     }
 
-    @PostMapping("update-author/{id}")
-    public String updateAuthor (@PathVariable("id") long id, @Valid Author author, BindingResult bindingResult, Model model) {
+    @PostMapping("edit-author/{id}")
+    public String updateAuthor (@PathVariable("id") Long id, @Valid Author author, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             author.setId(id);
             return "author/update";
@@ -64,7 +66,7 @@ public class AuthorController {
     }
 
     @GetMapping("delete-author/{id}")
-    public String deleteAuthor (@PathVariable("id") long id, Model model) {
+    public String deleteAuthor (@PathVariable("id") Long id, Model model) {
         Author author = authorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Autor da id " + id + " não existe"));
         authorRepository.delete(author);
         model.addAttribute("author", authorRepository.findAll());
