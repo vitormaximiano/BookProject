@@ -25,7 +25,7 @@ public class Book {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private Set<AuthorBook> book;
 
     public Long getId (){
@@ -58,5 +58,13 @@ public class Book {
 
     public void setDescription (String description){
         this.description = description;
+    }
+
+    public Set<AuthorBook> getBook (){
+        return book;
+    }
+
+    public void setBook (Set<AuthorBook> book){
+        this.book = book;
     }
 }

@@ -44,16 +44,17 @@ public class AuthorController {
     }
 
     @PostMapping("insert-author")
-    public String addAuthor (Author author) {
-
+    public String addAuthor (Author author, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "add-author";
+        }
         authorRepository.save(author);
         return "redirect:/list-authors";
-
     }
 
     @GetMapping("edit-author/{id}")
     public String showUpdateAuthor (@PathVariable("id") Long id, Model model) {
-        Author author = authorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Código de verificação número " + id + " inválido!"));
+        Author author = authorRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Id " + id + " not found!"));
         model.addAttribute("author", author);
         return "author/update";
     }

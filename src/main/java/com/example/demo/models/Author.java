@@ -19,7 +19,7 @@ public class Author {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private Set<AuthorBook> author;
 
     public Long getId (){
@@ -38,4 +38,11 @@ public class Author {
         this.name = name;
     }
 
+    public Set<AuthorBook> getAuthor (){
+        return author;
+    }
+
+    public void setAuthor (Set<AuthorBook> author){
+        this.author = author;
+    }
 }

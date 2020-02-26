@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head th:include="fragments/header :: header"></head>
-    <body>
-        <div class="container-fluid">
-
+<head th:include="fragments/header :: header"></head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form th:action="@{/update-author/}" th:object="${author}" method="post">
+                <p>
+                    <input type="text" th:field="*{id}" th:value="${author.id}" disabled />
+                </p>
+                <p>
+                    <label for="name" class="col-form-label">Name</label>
+                    <input th:field="*{name}" type="text" class="form-control" id="name" placeholder="Name" th:value="${author.name}" />
+                </p>
+                <p>
+                    <input type="submit" class="btn btn-primary" value="Add Author" />
+                </p>
+            </form>
         </div>
-    </body>
+    </div>
+</div>
+</body>
 </html>
