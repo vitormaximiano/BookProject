@@ -5,6 +5,9 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.CascadeType;
+import java.util.Set;
 
 @Entity
 public class Author {
@@ -15,6 +18,9 @@ public class Author {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    private Set<AuthorBook> author;
 
     public Long getId (){
         return id;
