@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -36,16 +38,17 @@ public class AuthorController {
     }
 
     @GetMapping("add-author")
-    public String showAddAuthor () {
+    public String addAuthorForm (Model model) {
+        model.addAttribute("author", new Author());
         return "author/add";
     }
 
-    @PostMapping("add-author/{id}/{name}")
-    public String addAuthor (Author author, @PathVariable("id") Long id, @PathVariable("name") String name) {
-        author.setId(id);
-        author.setName(name);
+    @PostMapping("insert-author")
+    public String addAuthor (Author author) {
+
         authorRepository.save(author);
-        return "redirect:author/list";
+        return "redirect:/list-authors";
+
     }
 
     @GetMapping("edit-author/{id}")
@@ -55,7 +58,7 @@ public class AuthorController {
         return "author/update";
     }
 
-    @PostMapping("edit-author/{id}")
+    @PostMapping("update-author/{id}")
     public String updateAuthor (@PathVariable("id") Long id, @Valid Author author, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             author.setId(id);
